@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CustomSelectableList.Extension;
-using CustomSelectableList.Custom.ViewModel;
 using System.Windows;
 using System.Linq;
 
@@ -31,20 +30,20 @@ namespace CustomSelectableList.ViewModel {
 
         public void OpenSelectableList () {
 
-            var canAdd1 = new Validate(_ => Add(_), _ => (Items.Count + 1) <= 15);
-            var notAdd1 = new Validate(_ => ShowErrorMore30Item(), _ => (Items.Count + 1) > 15);
+            var validateAdd1 = new Validate<Model.User>(_ => Add(_), _ => (Items.Count + 1) <= 15);
+            var validateNotAdd1 = new Validate<Model.User>(_ => ShowErrorMore15Item(), _ => (Items.Count + 1) > 15);
 
-            var canAdd2 = new Validate(_ => Add(_), _ => !Items.Any(a => a.ID == (_ as Model.User).ID));
-            var notAdd2 = new Validate(_ => ShowErrorSameItem(), _ => Items.Any(a => a.ID == (_ as Model.User).ID)); 
+            var validadeAdd2 = new Validate<Model.User>(_ => Add(_), _ => !Items.Any(a => a.ID == (_).ID));
+            var validateNotAdd2 = new Validate<Model.User>(_ => ShowErrorSameItem(), _ => Items.Any(a => a.ID == (_).ID)); 
 
             var users = GetUsers(20);
-            users.OpenSelectableList(new ValidateCase(
-                new List<Validate>() { canAdd1, canAdd2 },
-                new List<Validate>() { notAdd1, notAdd2 }
+            users.OpenSelectableList(new ValidateCase<Model.User>(
+                new List<Validate<Model.User>>() { validateAdd1, validadeAdd2, },
+                new List<Validate<Model.User>>() { validateNotAdd1, validateNotAdd2, }
             ));
         }
 
-        public void ShowErrorMore30Item () {
+        public void ShowErrorMore15Item () {
             MessageBox.Show("Error","Impossivel add mais que 15 items.");
         }
 

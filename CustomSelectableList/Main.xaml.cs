@@ -15,7 +15,7 @@ namespace CustomSelectableList {
     /// <summary>
     /// Interaction logic for Main.xaml
     /// </summary>
-    public partial class Main:UserControl {
+    public partial class Main:Window {
         public Main () {
             InitializeComponent();
             DataContext = new ViewModel.Main();

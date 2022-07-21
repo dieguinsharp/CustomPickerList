@@ -2,10 +2,10 @@
 
 namespace CustomSelectableList.Custom {
     /// <summary>
-    /// Interaction logic for SelectableList.xaml
+    /// Interaction logic for PickerViewModel.xaml
     /// </summary>
-    public partial class SelectableList:Window {
-        public SelectableList () {
+    public partial class PickerView:Window {
+        public PickerView () {
             InitializeComponent();
         }
     }
